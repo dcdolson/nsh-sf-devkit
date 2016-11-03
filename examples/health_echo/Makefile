@@ -9,9 +9,9 @@ LIBS :=  Interfaces
 
 STDLIBS := stdc++
 
-all: health_echo
+all: obj/health_echo
 
-health_echo: $(OBJS) $(addsuffix .a,$(addprefix $(TOP)/lib/lib,$(LIBS)))
+obj/health_echo: $(OBJS) $(addsuffix .a,$(addprefix $(TOP)/lib/lib,$(LIBS)))
 	$(CC) -o $@ $(OBJS) -L$(TOP)/lib $(addprefix -l,$(LIBS) $(STDLIBS))
 
 
