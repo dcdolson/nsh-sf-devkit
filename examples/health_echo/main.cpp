@@ -1,3 +1,7 @@
+//! This program uses a PacketSocket interface to answer OAM health checks.
+//! This example program uses the interfaces directly.
+//! You wouldn't normally do that after the Demux module is added...
+
 #include <Interfaces/PacketSocket.h>
 #include "HealthEcho.h"
 #include <poll.h>
