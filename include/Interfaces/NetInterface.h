@@ -9,10 +9,10 @@ namespace nshdev
     class Consumer;
     class PacketRef;
 
-    class Interface
+    class NetInterface
     {
     public:
-        Interface():
+        NetInterface():
             m_consumer(0)
         {
         }

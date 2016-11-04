@@ -5,7 +5,7 @@
 #include <Packet.h>
 #include <Interfaces/NetInterface.h>
 
-void HealthEcho::Receive(nshdev::PacketRef& packetRef, nshdev::Interface& receiveInterface)
+void HealthEcho::Receive(nshdev::PacketRef& packetRef, nshdev::NetInterface& receiveInterface)
 {
     const nsh_hdr* nsh = reinterpret_cast<const nsh_hdr*>(packetRef.Data());
     unsigned next = nsh_get_next_header(nsh);

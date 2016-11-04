@@ -12,7 +12,7 @@
 
 namespace nshdev
 {
-    class PacketSocket: public Interface
+    class PacketSocket: public NetInterface
     {
     public:
 	explicit PacketSocket(int ifIndex, uint16_t etherType=0x894f);

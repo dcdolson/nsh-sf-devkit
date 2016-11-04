@@ -3,7 +3,7 @@
 
 namespace nshdev
 {
-    void Interface::Forward(PacketRef& packetRef)
+    void NetInterface::Forward(PacketRef& packetRef)
     {
         m_consumer->Receive(packetRef, *this);
     }
