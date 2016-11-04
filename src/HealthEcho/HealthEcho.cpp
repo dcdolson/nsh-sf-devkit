@@ -1,4 +1,4 @@
-#include "HealthEcho.h"
+#include <HealthEcho/HealthEcho.h>
 #include <iostream>
 #include <nsh/nsh.h>
 #include <nsh/nsh_oam_echo.h>

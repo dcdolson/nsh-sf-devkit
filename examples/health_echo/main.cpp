@@ -3,7 +3,7 @@
 //! You wouldn't normally do that after the Demux module is added...
 
 #include <Interfaces/PacketSocket.h>
-#include "HealthEcho.h"
+#include <HealthEcho/HealthEcho.h>
 #include <poll.h>
 #include <iostream>
 

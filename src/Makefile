@@ -1,6 +1,9 @@
 TOP := ..
 
-DIRS := Interfaces PacketSocket
+DIRS := \
+    HealthEcho \
+    Interfaces \
+    PacketSocket
 
 all: dirs
 

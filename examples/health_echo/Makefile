@@ -2,11 +2,11 @@ TOP := ../..
 
 OBJS := $(addprefix obj/, \
     main.o \
-    HealthEcho.o \
     )
 
 LIBS :=  \
     PacketSocket \
+    HealthEcho \
     Interfaces
 
 STDLIBS := stdc++
