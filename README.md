@@ -29,3 +29,8 @@ Executables are found in `bin` folders beneath the application code.
 
 Code is compiled with gcc options `-Wall -std=c++14`.
 
+## Tips
+
+To give a program permission to use RAW or PACKET sockets without having super-user
+privilege, give capabilities to the executable: `sudo setcap cap_net_raw=pe <executable>`.
+
