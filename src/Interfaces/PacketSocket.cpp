@@ -71,7 +71,7 @@ namespace nshdev
 	    throw ErrMsg("Error from recvfrom", errno);
 	}
 	printf("Send addr: ");
-	dump_ll(from.addr, from.length);
+	//dump_ll(from.addr, from.length);
         if( from.addr.sll_pkttype == PACKET_HOST ) // for us
 	{
 	    PacketRef pref(data, read, &from);
@@ -84,19 +84,10 @@ namespace nshdev
         const LinkAddr& from = static_cast<const LinkAddr&>(*packetRef.From());
 	struct sockaddr_ll to = from.addr;
 	printf("Return addr: ");
-	dump_ll(to, from.length);
+	//dump_ll(to, from.length);
 
-	// maybe we have to craft the ethernet header too
-	// REVISIT: prepend to packet
-	uint8_t new_packet[2000];
-	memcpy(new_packet, to.sll_addr, 6);
-	bzero(&new_packet[6], 6);
-	*reinterpret_cast<uint16_t*>(&new_packet[12]) = to.sll_protocol;
-	memcpy(&new_packet[14], packetRef.Data(), packetRef.Length());
-
-
-	ssize_t written = sendto(m_socket, new_packet, packetRef.Length()+14, MSG_DONTWAIT,
-	                         reinterpret_cast<struct sockaddr*>(&to), from.length);
+	ssize_t written = sendto(m_socket, packetRef.Data(), packetRef.Length(), MSG_DONTWAIT,
+	                         reinterpret_cast<struct sockaddr*>(&to), sizeof(to));
 	if(written < 0)
 	{
 	    fprintf(stderr, "Error %d from sendto (%s)\n", errno, strerror(errno));
