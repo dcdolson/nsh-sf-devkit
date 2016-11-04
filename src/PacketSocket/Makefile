@@ -1,10 +1,10 @@
 TOP := ../..
-LIB := ../../lib/libInterfaces.a
+LIB := ../../lib/libPacketSocket.a
 
 all: $(LIB)
 
 OBJS := $(addprefix obj/, \
-    NetInterface.o \
+    PacketSocket.o \
     )
 
 include $(TOP)/make/macros.mk

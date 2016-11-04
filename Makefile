@@ -1,4 +1,8 @@
-all:
-	$(MAKE) -C src
-	$(MAKE) -C examples
+TOP := .
+
+DIRS := src examples
+
+all: dirs
+
+include $(TOP)/make/macros.mk
 

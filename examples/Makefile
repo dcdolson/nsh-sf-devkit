@@ -1,3 +1,7 @@
-all:
-	$(MAKE) -C health_echo
+TOP := ..
+DIRS := health_echo
+
+all: dirs
+
+include $(TOP)/make/macros.mk
 
