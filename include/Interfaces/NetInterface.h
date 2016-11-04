@@ -7,6 +7,7 @@ namespace nshdev
 {
 
     class Consumer;
+    class PacketRef;
 
     class Interface
     {
@@ -29,9 +30,14 @@ namespace nshdev
         //! Do the work of receiving packets and calling consumers.
         virtual void Run() = 0;
 
+	//! Allow a consumer to immediately respond a packet.
+	//! Must only be called in the context of a callback from the consumer.
+	//! @param packetRef  The same packetRef passed to the consumer.
+	virtual void ReturnToSender(PacketRef& packetRef) = 0;
+
     protected:
         //! Derived class calls this to send to consumer.
-        void Forward(const uint8_t*data, unsigned length);
+        void Forward(PacketRef& packetRef);
 
     private:
         Consumer* m_consumer;

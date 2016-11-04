@@ -3,9 +3,9 @@
 
 namespace nshdev
 {
-    void Interface::Forward(const uint8_t* data, unsigned length)
+    void Interface::Forward(PacketRef& packetRef)
     {
-        m_consumer->Receive(data, length);
+        m_consumer->Receive(packetRef, *this);
     }
 } // namespace
 

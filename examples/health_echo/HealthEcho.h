@@ -5,7 +5,7 @@
 class HealthEcho: public nshdev::Consumer
 {
     public:
-        virtual void Receive(const uint8_t* data, unsigned length);
+	virtual void Receive(nshdev::PacketRef& packetRef, nshdev::Interface& receiveInterface) override;
 };
 
 #endif

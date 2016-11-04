@@ -4,11 +4,13 @@
 
 namespace nshdev
 {
+    class Interface;
+    class PacketRef;
 
     class Consumer
     {
     public:
-        virtual void Receive(const uint8_t* data, unsigned length) = 0;
+        virtual void Receive(PacketRef& packetRef, Interface& receiveInterface) = 0;
     };
 
 } // namespace nshdev
