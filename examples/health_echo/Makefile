@@ -1,7 +1,7 @@
 TOP := ../..
 
 OBJS := $(addprefix obj/, \
-    health_echo.o \
+    main.o \
     HealthEcho.o \
     )
 
