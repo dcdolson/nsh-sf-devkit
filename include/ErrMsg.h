@@ -1,29 +1,28 @@
 #ifndef ERRMSG_H
 #define ERRMSG_H
 #include <string>
-#include <stdio.h>
-#include <stdint.h>
+#include <sstream>
 #include <string.h>
+#include <iostream>
 
-class ErrMsg
+class ErrMsg: public std::exception
 {
 public:
-    ErrMsg(const std::string& msg, int err):
-	m_msg(msg),
-	m_errno(err)
+    ErrMsg(const std::string& msg, int err)
     {
+	std::stringstream ss;
+        ss << msg << " (errno=" << err << ":" << strerror(err) << ") ";
+	m_msg = ss.str();
     }
-    ErrMsg operator+(const std::string& rhs) const
+
+    //! implement std::exception::what()
+    virtual const char* what() const noexcept override
     {
-        return ErrMsg(m_msg + rhs, m_errno);
+        return m_msg.c_str();
     }
-    void Dump(FILE* f) const
-    {
-        fprintf(f, "Fatal error (errno=%d): '%s'\n%s\n", m_errno, m_msg.c_str(), strerror(m_errno));
-    }
+
 private:
-    const std::string m_msg;
-    const int         m_errno;
+    std::string m_msg;
 };
 
 #endif
