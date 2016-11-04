@@ -12,7 +12,7 @@ int main(int argc, char** argv)
     interface.SetConsumer(&echo);
 
     int fd = interface.GetWaitFD();
-    for(unsigned i=0; i < 40; ++i)
+    while(1)
     {
         struct pollfd fds;
         fds.fd = fd;
