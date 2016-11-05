@@ -70,7 +70,7 @@ namespace nshdev
 	{
 	    throw ErrMsg("Error from recvfrom", errno);
 	}
-	printf("Send addr: ");
+	//printf("Send addr: ");
 	//dump_ll(from.addr, from.length);
         if( from.addr.sll_pkttype == PACKET_HOST ) // for us
 	{
@@ -83,7 +83,7 @@ namespace nshdev
     {
         const LinkAddr& from = static_cast<const LinkAddr&>(*packetRef.From());
 	struct sockaddr_ll to = from.addr;
-	printf("Return addr: ");
+	//printf("Return addr: ");
 	//dump_ll(to, from.length);
 
 	ssize_t written = sendto(m_socket, packetRef.Data(), packetRef.Length(), MSG_DONTWAIT,

@@ -1,6 +1,7 @@
 TOP := ..
 
 DIRS := \
+    Demux \
     Dpdk \
     HealthEcho \
     Interfaces \
