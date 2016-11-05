@@ -1,6 +1,7 @@
 TOP := ..
 
 DIRS := \
+    Dpdk \
     HealthEcho \
     Interfaces \
     PacketSocket
