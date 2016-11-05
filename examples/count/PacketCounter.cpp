@@ -21,7 +21,7 @@ void PacketCounter::Display()
     if( now - m_lastDisplayTime > 0 )
     {
         std::cout << "Packets: " << std::right << std::setw(12) << m_packets
-	    << "Bytes: " << m_bytes << std::endl;
+	    << "  Bytes: " << m_bytes << std::endl;
 	m_lastDisplayTime = now;
     }
 }

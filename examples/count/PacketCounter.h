@@ -7,6 +7,13 @@
 class PacketCounter: public nshdev::Consumer
 {
 public:
+    PacketCounter():
+        m_packets(0),
+	m_bytes(0),
+	m_lastDisplayTime(std::time(nullptr))
+    {
+    }
+
     //! Implement Consumer
     virtual void Receive(nshdev::PacketRef& packetRef, nshdev::NetInterface& interface) override;
 
