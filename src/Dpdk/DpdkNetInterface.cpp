@@ -53,25 +53,31 @@ void DpdkNetInterface::Run()
 {
     struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
 
-    uint32_t numPackets = rte_eth_rx_burst(m_portId,
-                                           m_rxQueueId,
-                                           pkts_burst,
-                                           MAX_PKT_BURST);
-    EtherOriginInfo info;
-    for(uint32_t i=0; i < numPackets; ++i)
-    {
-        PacketRef ref = MbufToPacketRef(*pkts_burst[i], info);
+    uint32_t numPackets = 0;
 
-        // this will fail if we couldn't prepend
-        if(ref.Data() != nullptr)
+    do
+    {
+        numPackets = rte_eth_rx_burst(m_portId,
+                                      m_rxQueueId,
+                                      pkts_burst,
+                                      MAX_PKT_BURST);
+        EtherOriginInfo info;
+        for(uint32_t i=0; i < numPackets; ++i)
         {
-            Forward(ref);
-        }
-        else
-        {
-            m_failedMbufCreations++;
+            PacketRef ref = MbufToPacketRef(*pkts_burst[i], info);
+
+            // this will fail if we couldn't prepend
+            if(ref.Data() != nullptr)
+            {
+                Forward(ref);
+            }
+            else
+            {
+                m_failedMbufCreations++;
+            }
         }
     }
+    while (numPackets > 0);
 }
 
 void DpdkNetInterface::ReturnToSender(PacketRef& packetRef)
