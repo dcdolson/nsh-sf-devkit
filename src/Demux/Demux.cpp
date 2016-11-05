@@ -12,13 +12,14 @@ namespace nshdev
 
     void Demux::Receive(nshdev::PacketRef& packetRef, nshdev::NetInterface& receiveInterface)
     {
-	const nsh_hdr* nsh = reinterpret_cast<const nsh_hdr*>(packetRef.Data());
+	nsh_hdr* nsh = reinterpret_cast<nsh_hdr*>(packetRef.Data());
 	if(nsh_is_oam_packet(nsh))
 	{
 	    m_oamConsumer->Receive(packetRef, receiveInterface);
 	}
 	else if(m_dataConsumer)
 	{
+	    nsh_decrement_service_index(nsh);
 	    m_dataConsumer->Receive(packetRef, receiveInterface);
 	}
     }
