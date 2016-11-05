@@ -24,6 +24,13 @@ Generated object files are found in `obj` folders beneath the code.
 Libraries are found in `lib`.
 Executables are found in `bin` folders beneath the application code.
 
+## Examples
+
+These examples use the library:
+ * health_echo - simply echo back health-check OAM packets.
+ * count - simply forward all packets, and count the packets and bytes. Uses the OAM Demux.
+
+
 
 ## Coding Standards
 
