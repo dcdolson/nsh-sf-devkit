@@ -1,6 +1,7 @@
 TOP := ..
 
 DIRS := \
+    Demux \
     HealthEcho \
     Interfaces \
     PacketSocket
