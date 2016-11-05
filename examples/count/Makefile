@@ -3,6 +3,7 @@ TOP := ../..
 OBJS := $(addprefix obj/, \
     main.o \
     PacketCounter.o \
+    Options.o \
     )
 
 DPDK_OBJS := $(addprefix obj/, \

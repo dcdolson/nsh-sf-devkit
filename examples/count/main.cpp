@@ -8,14 +8,15 @@
 #include <poll.h>
 #include <iostream>
 #include "PacketCounter.h"
+#include "Options.h"
 
 int main(int argc, char** argv)
 {
-    int interface_index = 0;
+    CountOptions opts(argc, argv);
 
     try
     {
-	nshdev::PacketSocket interface(interface_index);
+	nshdev::PacketSocket interface(opts.GetIfIndex());
 	nshdev::Demux demux;
 	interface.SetConsumer(&demux);
 
