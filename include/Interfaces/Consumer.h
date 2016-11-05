@@ -10,6 +10,7 @@ namespace nshdev
     class Consumer
     {
     public:
+        virtual ~Consumer() {}
         virtual void Receive(PacketRef& packetRef, NetInterface& receiveInterface) = 0;
     };
 

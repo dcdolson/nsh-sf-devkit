@@ -17,6 +17,10 @@ namespace nshdev
         {
         }
 
+        virtual ~NetInterface()
+        {
+        }
+
         //! Set the callback.
         void SetConsumer(Consumer* consumer)
         {
