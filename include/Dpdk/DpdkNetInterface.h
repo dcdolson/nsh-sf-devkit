@@ -27,8 +27,18 @@ public:
     //! @copydoc NetInterface::Run()
     void Run() override;
 
+    //! @copydoc NetInterface::ReturnToSender
+    void ReturnToSender(PacketRef& packetRef) override;
+
 private:
-    uint8_t m_portId;
+    const uint8_t m_portId;
+
+    const uint32_t m_rxQueueId = 0;
+    const uint32_t m_txQueueId = 0;
+
+    uint64_t m_failedMbufCreations = 0;
+    uint64_t m_numOutDiscards = 0;
+    uint64_t m_numFailedPrepend = 0;
 };
 
 }
