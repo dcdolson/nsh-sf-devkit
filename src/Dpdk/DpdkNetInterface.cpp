@@ -10,7 +10,8 @@ DpdkNetInterface::DpdkNetInterface(uint8_t portId):
 
 int DpdkNetInterface::GetWaitFD() const
 {
-    return 0;
+    // do not wait -- poll via run
+    return -1;
 }
 
 void DpdkNetInterface::Run()

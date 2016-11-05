@@ -29,6 +29,8 @@ namespace nshdev
         }
 
         //! Obtain a file descriptor on which to wait.
+        //! @return an FD which can be polled for activity, or -1
+        //! if the scheduler should just poll @c Run
         virtual int GetWaitFD() const = 0;
 
         //! Do the work of receiving packets and calling consumers.
