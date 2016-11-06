@@ -24,6 +24,18 @@ Generated object files are found in `obj` folders beneath the code.
 Libraries are found in `lib`.
 Executables are found in `bin` folders beneath the application code.
 
+### Using DPDK
+To use DPDK, you need to have it compiled and installed as a shared library in the system lib path.
+Then, you need to compile the entire development kit with the following environment variable set to the DPDK library include path: DPDK_INCLUDE.
+
+For example,
+'''
+make clean
+export DPDK_INCLUDE=/usr/include/dpdk/
+make
+'''
+Note: DPDK 2.2, which is shipped with ubuntu, does not play nicely with virtio and recent versions of qemu. If you do not unbind/rebind a virtio nic prior to starting an application, you risk having qemu kill your guest.
+
 ## Examples
 
 These examples use the library:
