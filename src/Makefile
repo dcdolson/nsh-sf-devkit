@@ -2,12 +2,19 @@ TOP := ..
 
 DIRS := \
     Demux \
-    Dpdk \
     HealthEcho \
     Interfaces \
-    NetIntefaceFactory \
+    NetInterfaceFactory \
     PacketSocket \
     Scheduler \
+
+ifeq ($(DPDK_INCLUDE),)
+DIRS += \
+    StubDpdk
+else
+DIRS += \
+    Dpdk
+endif
 
 all: dirs
 
