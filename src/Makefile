@@ -5,7 +5,8 @@ DIRS := \
     Dpdk \
     HealthEcho \
     Interfaces \
-    PacketSocket
+    PacketSocket \
+    Scheduler \
 
 all: dirs
 
