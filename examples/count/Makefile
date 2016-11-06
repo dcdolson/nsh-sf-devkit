@@ -15,7 +15,8 @@ LIBS :=  \
     PacketSocket \
     Demux \
     HealthEcho \
-    Interfaces
+    Interfaces \
+    Scheduler \
 
 STDLIBS := stdc++ 
 

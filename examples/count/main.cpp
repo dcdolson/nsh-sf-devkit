@@ -5,7 +5,7 @@
 
 #include <Interfaces/PacketSocket.h>
 #include <Demux/Demux.h>
-#include <poll.h>
+#include <Scheduler/Scheduler.h>
 #include <iostream>
 #include "PacketCounter.h"
 #include "Options.h"
@@ -16,28 +16,18 @@ int main(int argc, char** argv)
 
     try
     {
-	nshdev::PacketSocket interface(opts.GetIfIndex());
-	nshdev::Demux demux;
-	interface.SetConsumer(&demux);
+        nshdev::PacketSocket interface(opts.GetIfIndex());
+        nshdev::Demux demux;
+        interface.SetConsumer(&demux);
 
-	PacketCounter packetCounter;
-	demux.SetConsumer(&packetCounter);
+        PacketCounter packetCounter;
+        demux.SetConsumer(&packetCounter);
 
-	int fd = interface.GetWaitFD();
-	while(1)
-	{
-	    struct pollfd fds;
-	    fds.fd = fd;
-	    fds.events = POLLIN;
-	    fds.revents = 0;
-	   
-	    int ready = poll(&fds, 1, /*timeout ms*/ 1000000 );
-	    if(ready > 0)
-	    {
-		interface.Run();
-	    }
+        nshdev::Scheduler scheduler(interface);
+
+        scheduler.SchedulePackets();
+
 	}
-    }
     catch(const std::exception& e)
     {
         std::cerr << "Caught exception (aborting)" << std::endl << e.what() << std::endl;

@@ -7,12 +7,10 @@
 #include <Dpdk/DpdkNetInterface.h>
 #include <Dpdk/DpdkSetup.h>
 #include <Demux/Demux.h>
+#include <Scheduler/Scheduler.h>
 #include <iostream>
 #include "PacketCounter.h"
 #include <unistd.h>
-
-#include <chrono>
-#include <thread>
 
 int main(int argc, char** argv)
 {
@@ -26,18 +24,16 @@ int main(int argc, char** argv)
     try
     {
 
-    nshdev::DpdkNetInterface dpdkIf(0);
-	nshdev::Demux demux;
-	dpdkIf.SetConsumer(&demux);
+        nshdev::DpdkNetInterface dpdkIf(0);
+        nshdev::Demux demux;
+        dpdkIf.SetConsumer(&demux);
 
-	PacketCounter packetCounter;
-	demux.SetConsumer(&packetCounter);
+        PacketCounter packetCounter;
+        demux.SetConsumer(&packetCounter);
 
-	while(1)
-	{
-        dpdkIf.Run();
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
-	}
+        nshdev::Scheduler scheduler(dpdkIf);
+
+        scheduler.SchedulePackets();
     }
     catch(const std::exception& e)
     {
