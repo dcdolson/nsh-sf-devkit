@@ -1,4 +1,5 @@
-CFLAGS = -Wall -std=c++14 $(CMDCFLAGS)
+CSTD := -std=c++14
+CFLAGS = -Wall $(CSTD) $(CMDCFLAGS)
 LDFLAGS := -lstdc++
 
 -include $(OBJS:.o=.d)
@@ -11,7 +12,7 @@ obj/%.o: %.cpp
 
 obj/%.d: %.cpp
 	mkdir -p obj
-	$(CC) -M -MT $(@:.d=.o) -MF $@ -I$(TOP)/include $(LOCAL_INCLUDE) $<
+	$(CC) $(CSTD) -M -MT $(@:.d=.o) -MF $@ -I$(TOP)/include $(LOCAL_INCLUDE) $<
 
 $(LIB): $(OBJS)
 	mkdir -p $(@D)
