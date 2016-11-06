@@ -2,35 +2,29 @@
 //! This example program uses the interfaces directly.
 //! You wouldn't normally do that after the Demux module is added...
 
-#include <Interfaces/PacketSocket.h>
+#include <NetInterfaceFactory/NetInterfaceFactory.h>
+#include <Interfaces/NetInterface.h>
 #include <HealthEcho/HealthEcho.h>
-#include <poll.h>
+#include <Scheduler/Scheduler.h>
 #include <iostream>
 
 int main(int argc, char** argv)
 {
-    int interface_index = 0;
-
     try
     {
-	nshdev::PacketSocket interface(interface_index);
-	HealthEcho echo;
-	interface.SetConsumer(&echo);
+        auto interface = nshdev::NetInterfaceFactory::CreateInterfaceFromArgs(argc, argv);
+        if(interface == nullptr)
+        {
+            std::cerr << "Failed to create interface" << std::endl;
+            return 2;
+        }
 
-	int fd = interface.GetWaitFD();
-	while(1)
-	{
-	    struct pollfd fds;
-	    fds.fd = fd;
-	    fds.events = POLLIN;
-	    fds.revents = 0;
-	   
-	    int ready = poll(&fds, 1, /*timeout ms*/ 1000000 );
-	    if(ready > 0)
-	    {
-		interface.Run();
-	    }
-	}
+        HealthEcho echo;
+        interface->SetConsumer(&echo);
+
+        nshdev::Scheduler scheduler(*interface);
+
+        scheduler.SchedulePackets();
     }
     catch(const std::exception& e)
     {

@@ -5,11 +5,19 @@ OBJS := $(addprefix obj/, \
     )
 
 LIBS :=  \
+    NetInterfaceFactory \
     PacketSocket \
+    Dpdk \
     HealthEcho \
-    Interfaces
+    Interfaces \
+    Scheduler \
 
 STDLIBS := stdc++
+
+ifneq ($(DPDK_INCLUDE),)
+STDLIBS += \
+    dpdk
+endif
 
 PROG := bin/health_echo
 

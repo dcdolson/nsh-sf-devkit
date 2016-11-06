@@ -3,43 +3,34 @@ TOP := ../..
 OBJS := $(addprefix obj/, \
     main.o \
     PacketCounter.o \
-    Options.o \
-    )
-
-DPDK_OBJS := $(addprefix obj/, \
-    dpdk_main.o \
-    PacketCounter.o \
     )
 
 LIBS :=  \
+    NetInterfaceFactory \
     PacketSocket \
+    Dpdk \
     Demux \
     HealthEcho \
     Interfaces \
     Scheduler \
 
-STDLIBS := stdc++ 
+STDLIBS := stdc++
 
-DPDKLIBS := Dpdk \
-            dpdk
+ifneq ($(DPDK_INCLUDE),)
+STDLIBS += \
+    dpdk
+endif
 
 PROG := bin/count
 
-DPDK_PROG := bin/dpdk_count
-
-all: $(PROG) $(DPDK_PROG)
+all: $(PROG)
 
 $(PROG): $(OBJS) $(addsuffix .a,$(addprefix $(TOP)/lib/lib,$(LIBS)))
 	mkdir -p bin
-	$(CC) -o $@ $(OBJS) -L$(TOP)/lib $(addprefix -l,$(LIBS) $(STDLIBS))
-
-$(DPDK_PROG): $(DPDK_OBJS) $(addsuffix .a,$(addprefix $(TOP)/lib/lib,$(LIBS)))
-	mkdir -p bin
-	$(CC) -g -o $@ $(DPDK_OBJS) -L$(TOP)/lib $(addprefix -l,$(DPDKLIBS) $(LIBS) $(STDLIBS))
-    
+	$(CC) -o $@ $(OBJS) -L$(TOP)/lib $(addprefix -l,$(LIBS) $(LIBS) $(STDLIBS))
 
 clean::
-	rm -f $(PROG) $(DPDK_PROG)
+	rm -f $(PROG)
 
 include $(TOP)/make/macros.mk
 

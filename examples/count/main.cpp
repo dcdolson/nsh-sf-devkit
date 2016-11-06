@@ -3,27 +3,31 @@
 //! This example program uses the interfaces directly.
 //! You wouldn't normally do that after the Demux module is added...
 
-#include <Interfaces/PacketSocket.h>
+#include "PacketCounter.h"
+#include <NetInterfaceFactory/NetInterfaceFactory.h>
+#include <Interfaces/NetInterface.h>
 #include <Demux/Demux.h>
 #include <Scheduler/Scheduler.h>
 #include <iostream>
-#include "PacketCounter.h"
-#include "Options.h"
 
 int main(int argc, char** argv)
 {
-    CountOptions opts(argc, argv);
-
     try
     {
-        nshdev::PacketSocket interface(opts.GetIfIndex());
+        auto interface = nshdev::NetInterfaceFactory::CreateInterfaceFromArgs(argc, argv);
+        if(interface == nullptr)
+        {
+            std::cerr << "Failed to create interface" << std::endl;
+            return 2;
+        }
+
         nshdev::Demux demux;
-        interface.SetConsumer(&demux);
+        interface->SetConsumer(&demux);
 
         PacketCounter packetCounter;
         demux.SetConsumer(&packetCounter);
 
-        nshdev::Scheduler scheduler(interface);
+        nshdev::Scheduler scheduler(*interface);
 
         scheduler.SchedulePackets();
 
