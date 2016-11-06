@@ -5,6 +5,7 @@ DIRS := \
     Dpdk \
     HealthEcho \
     Interfaces \
+    NetIntefaceFactory \
     PacketSocket \
     Scheduler \
 
