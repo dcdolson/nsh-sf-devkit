@@ -1,0 +1,24 @@
+#!/bin/bash
+# Parameters: $1  PCI address of interface.
+
+echo "Running $(pwd)/$0"
+
+if [ "$1" = "" ] ; then
+    echo "Usage: $0 <interface PCI address>" >&2
+    exit 1
+fi
+
+# Find binary file relative to this script.
+bin_file=$(dirname $0)/bin/count
+if [ ! -x "$bin_file" ] ; then
+    echo "Cannot find executable file $bin_file" >&2
+    exit 1
+fi
+
+# Clean up possible bad DPDK state.
+dpdk_nic_bind -u $1
+dpdk_nic_bind -b virtio-pci $1
+dpdk_nic_bind -u $1
+
+$bin_file --dpdk-pci-addr "$1" --
+
