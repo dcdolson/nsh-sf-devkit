@@ -4,7 +4,7 @@ These instructions pertain to compiling with DPDK 2.2, which is the current vers
 
 Note: DPDK 2.2, does not play nicely with virtio and recent versions of qemu. 
 If you do not unbind/rebind a virtio nic prior to starting an application, you risk having qemu kill your guest.
-The run_with_bindings.sh scripts does this.
+The `run_with_bindings.sh` scripts does this.
 
 
 ## Installing DPDK
@@ -39,7 +39,7 @@ interface types based on command-line args.
 Invoke the examples with the `--dpdk-pci-addr` option to select
 the use of DPDK and specify the PCI address of the interface.
 
-The run_with_bindings script should be used to properly clean up
+The `run_with_bindings` script should be used to properly clean up
 DPDK before using it. (This works around some DPDK bugs.)
 
 For example,
