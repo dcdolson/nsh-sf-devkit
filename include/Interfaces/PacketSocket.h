@@ -20,6 +20,8 @@ namespace nshdev
 	virtual void Run() override;
 	virtual int GetWaitFD() const override;
 	virtual void ReturnToSender(PacketRef& packetRef) override;
+	virtual void Send(const uint8_t* data, unsigned length, const OriginInfo* from) override;
+	virtual void Free(PacketRef&) override;
 
     private:
 	int                 m_socket;

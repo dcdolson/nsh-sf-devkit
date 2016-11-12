@@ -81,6 +81,8 @@ namespace nshdev
 
     void PacketSocket::ReturnToSender(PacketRef& packetRef)
     {
+	Send(packetRef.Data(), packetRef.Length(), packetRef.From());
+#if 0
         const LinkAddr& from = static_cast<const LinkAddr&>(*packetRef.From());
 	struct sockaddr_ll to = from.addr;
 	//printf("Return addr: ");
@@ -92,6 +94,24 @@ namespace nshdev
 	{
 	    fprintf(stderr, "Error %d from sendto (%s)\n", errno, strerror(errno));
 	}
+#endif
+    }
+
+    void PacketSocket::Send(const uint8_t* data, unsigned length, const OriginInfo* from)
+    {
+        const LinkAddr& from_link = static_cast<const LinkAddr&>(*from);
+	struct sockaddr_ll to = from_link.addr;
+	ssize_t written = sendto(m_socket, data, length, MSG_DONTWAIT,
+	                         reinterpret_cast<struct sockaddr*>(&to), sizeof(to));
+	if(written < 0)
+	{
+	    fprintf(stderr, "Error %d from sendto (%s)\n", errno, strerror(errno));
+	}
+    }
+
+    void PacketSocket::Free(PacketRef&)
+    {
+        // nothing was allocated
     }
 
 }

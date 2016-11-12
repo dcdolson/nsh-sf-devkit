@@ -1,6 +1,7 @@
 TOP := ..
 
 DIRS := \
+    cksum \
     Demux \
     HealthEcho \
     Interfaces \

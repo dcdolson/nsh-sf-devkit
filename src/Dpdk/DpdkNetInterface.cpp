@@ -119,4 +119,16 @@ void DpdkNetInterface::ReturnToSender(PacketRef& packetRef)
     }
 }
 
+void DpdkNetInterface::Send(const uint8_t* data, unsigned length, const OriginInfo* from)
+{
+    // allocate a buffer, copy the provided data into it.
+#error FINISH ME
+}
+
+void DpdkNetInterface::Free(PacketRef& packetRef)
+{
+    const EtherOriginInfo &info = static_cast<const EtherOriginInfo&>(*packetRef.From());
+    rte_pktmbuf_free(info.mbuf);
+}
+
 }
