@@ -17,7 +17,7 @@ namespace nshdev
     class PacketRef
     {
     public:
-        PacketRef(uint8_t* data, unsigned length, const OriginInfo* origin):
+        PacketRef(uint8_t* data, unsigned length, OriginInfo* origin):
 	    m_data(data),
 	    m_length(length),
 	    m_origin_info(origin)
@@ -30,12 +30,13 @@ namespace nshdev
 	unsigned  m_length;
 
 	//! Interface-type-specific information about the sender, to facilitate return.
-	const OriginInfo* m_origin_info;
+    OriginInfo* m_origin_info;
 
     public:
         uint8_t* Data() const { return m_data; }
 	unsigned Length() const { return m_length; }
 	const OriginInfo* From() const { return m_origin_info; }
+	OriginInfo* From() { return m_origin_info; }
 	//! Make a copy of the packet that can be stored for later.
         Packet* Clone() const;
     };

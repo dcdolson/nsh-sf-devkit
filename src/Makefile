@@ -7,6 +7,7 @@ DIRS := \
     NetInterfaceFactory \
     PacketSocket \
     Scheduler \
+    Vpp \
 
 ifeq ($(DPDK_INCLUDE),)
 DIRS += \
