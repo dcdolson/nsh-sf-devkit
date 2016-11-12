@@ -254,6 +254,12 @@ static inline void nsh_decrement_service_index(struct nsh_hdr* hdr)
     --hdr->service_hdr.service_index;
 }
 
+// See https://tools.ietf.org/html/draft-penno-sfc-packet-03#section-5.4.1
+static inline void nsh_algorithmic_reversal(struct nsh_hdr* hdr)
+{
+    hdr->service_hdr.service_index = 255 - hdr->service_hdr.service_index;
+}
+
 inline static uint8_t nsh_get_service_index_from_nsh_header(const struct nsh_hdr * hdr)
 {
     return hdr->service_hdr.service_index;
