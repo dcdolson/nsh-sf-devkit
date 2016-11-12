@@ -1,7 +1,6 @@
 //! This program provides a service function that counts packets, which it forwards without modification.
 //! (There is a modification to decrement the SI of the NSH header.)
-//! This example program uses the interfaces directly.
-//! You wouldn't normally do that after the Demux module is added...
+//! This example program uses the Demux module to handle keep-alive packets.
 
 #include "PacketCounter.h"
 #include <NetInterfaceFactory/NetInterfaceFactory.h>
