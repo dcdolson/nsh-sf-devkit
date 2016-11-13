@@ -26,9 +26,3 @@ void VppNetInterface::Send(const nshsfdev_packet_t* packet)
 
     Forward(ref);              
 }
-
-// blargh
-void nshdev::NetInterface::Forward(nshdev::PacketRef& ref)
-{
-    m_consumer->Receive(ref, *this);
-}

@@ -1,14 +1,15 @@
 TOP := ../..
 
-SLIB := $(TOP)/lib/vpp.so
+LIB:=$(TOP)/lib/libvpp.a
 
-SOBJS := $(addprefix obj/, \
-    PacketCounter.o \
-    VppIntegration.o \
+all:: $(LIB)
+
+OBJS := $(addprefix obj/, \
     VppNetInterface.o \
+    VppIntegration.o \
     )
 
-include $(TOP)/make/shared.mk
+include $(TOP)/make/macros.mk
 
 ifeq ($(VPP_INCLUDE),)
 $(error "Please define VPP_INCLUDE environment variable")

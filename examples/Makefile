@@ -1,7 +1,7 @@
 TOP := ..
 DIRS := \
     count \
-    health_echo
+    health_echo \
 
 all: dirs
 

@@ -7,7 +7,7 @@ LDFLAGS := -lstdc++
 
 obj/%.o: %.cpp
 	mkdir -p obj
-	$(CC) $(CFLAGS) -c -o $@ -Wall -I$(TOP)/include $(LOCAL_INCLUDE) $<
+	$(CC) $(CFLAGS) -fPIC -c -o $@ -Wall -I$(TOP)/include $(LOCAL_INCLUDE) $<
 
 
 obj/%.d: %.cpp

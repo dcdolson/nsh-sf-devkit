@@ -9,7 +9,8 @@ namespace nshdev
     class Demux: public Consumer
     {
     public:
-        Demux();
+    Demux(Consumer *consumer = nullptr);
+
 	virtual void Receive(nshdev::PacketRef& packetRef, nshdev::NetInterface& receiveInterface) override;
 	void SetConsumer(Consumer* consumer)
 	{

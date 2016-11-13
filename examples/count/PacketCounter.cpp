@@ -18,7 +18,7 @@ void PacketCounter::Display()
 {
     // very primitive: display counts, but no more than once per second.
     std::time_t now = std::time(nullptr);
-    if( now - m_lastDisplayTime > 0 )
+    if( now - m_lastDisplayTime > 10 )
     {
         std::cout << "Packets: " << std::right << std::setw(12) << m_packets
 	    << "  Bytes: " << m_bytes << std::endl;

@@ -5,8 +5,9 @@
 
 namespace nshdev
 {
-    Demux::Demux():
-	m_oamConsumer(new HealthEcho())
+    Demux::Demux(Consumer *consumer):
+	m_oamConsumer(new HealthEcho()),
+    m_dataConsumer(consumer)
     {
     }
 

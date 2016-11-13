@@ -6,13 +6,16 @@ extern "C"
 #include "VppNetInterface.h"
 #include <memory>
 
-#include "PacketCounter.h"
+#include <SharedLib/RegisterConsumer.h>
 
-static std::unique_ptr<VppNetInterface> g_if;
-static std::unique_ptr<PacketCounter> g_counter;
+#include <stdio.h>
 
 namespace
 {
+
+nshdev::Consumer *g_consumer = nullptr;
+
+std::unique_ptr<VppNetInterface> g_if;
 
 int vpp_rx(void *user_opaque, nshsfdev_packet_t* packet)
 {
@@ -30,14 +33,26 @@ int vpp_poll(void *user_opaque)
 
 }
 
+namespace nshdev
+{
+void RegisterConsumer(Consumer &consumer)
+{
+    ::g_consumer = &consumer;
+    if(g_if)
+    {
+        g_if->SetConsumer(::g_consumer);
+    }
+}
+}
+
 extern "C"
 {
 int sfdev_magic_init(nshsfdev_api_register_t *a)
 {
     g_if.reset(new VppNetInterface(*a));
-    g_counter.reset(new PacketCounter);
 
-    g_if->SetConsumer(g_counter.get());
+    g_if->SetConsumer(g_consumer);
+    printf("Setting consumer to %p\n", g_consumer);
 
     nshsfdev_user_register_t u;
     u.name = "sfdev_vpp";

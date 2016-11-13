@@ -3,19 +3,9 @@ CFLAGS = -Wall $(CSTD) $(CMDCFLAGS)
 
 -include $(OBJS:.o=.d)
 
-
-obj/%.o: %.cpp
-	mkdir -p obj
-	$(CC) $(CFLAGS) -fPIC -c -o $@ -Wall -I$(TOP)/include $(LOCAL_INCLUDE) $<
-
-
-obj/%.d: %.cpp
-	mkdir -p obj
-	$(CC) $(CSTD) -M -MT $(@:.d=.o) -MF $@ -I$(TOP)/include $(LOCAL_INCLUDE) $<
-
-$(SLIB): $(SOBJS)
+$(SLIB): $(SOBJS) $(addsuffix .a,$(addprefix $(TOP)/lib/lib,$(SLIB_DEPS)))
 	mkdir -p $(@D)
-	$(CC) -shared -Wl,-soname,$@ -o $@ $^ -lstdc++
+	$(CC) -shared -Wl,-soname,$@ -o $@ $^ -lstdc++ -L$(TOP)/lib $(addprefix -l,$(SLIB_DEPS))
 
 ifneq ($(SLIB),)
 clean::
