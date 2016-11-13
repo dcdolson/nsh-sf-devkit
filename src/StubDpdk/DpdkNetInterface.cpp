@@ -26,4 +26,15 @@ void DpdkNetInterface::ReturnToSender(PacketRef& packetRef)
     throw std::runtime_error("Dpdk is not supported with the current build");
 }
 
+void DpdkNetInterface::Send(const uint8_t* data, unsigned length, const OriginInfo* from)
+{
+    throw std::runtime_error("Dpdk is not supported with the current build");
+}
+
+void DpdkNetInterface::Free(PacketRef&)
+{
+    throw std::runtime_error("Dpdk is not supported with the current build");
+}
+
+
 }

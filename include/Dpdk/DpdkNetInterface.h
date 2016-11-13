@@ -30,6 +30,12 @@ public:
     //! @copydoc NetInterface::ReturnToSender
     void ReturnToSender(PacketRef& packetRef) override;
 
+    //! @copydoc NetInterface::Send
+    virtual void Send(const uint8_t* data, unsigned length, const OriginInfo* from) override;
+
+    //! @copydoc NetInterface::Free
+    virtual void Free(PacketRef&) override;
+
 private:
     const uint8_t m_portId;
 
